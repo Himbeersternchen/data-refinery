@@ -1,0 +1,193 @@
+# Example: which EU countries are moving fastest on renewable energy (English-language example)
+# 示例：欧盟哪些国家的可再生能源转型最快（英文示例）
+#
+# Metrics come from Eurostat's open API: run `python -m refinery build examples/renewables-eu/evidence.yaml --live`
+# to refresh evidence.metrics.json. Signals were collected by hand. `claim` is a paraphrase; where a `quote`
+# is given it was checked against the Eurostat news release. Check the source before quoting anything else.
+# 指标来自 Eurostat 开放接口（--live 刷新）；信号是手工整理的转述，带 quote 的几条已对照 Eurostat 新闻稿原文。
+
+title: Which EU countries are moving fastest on renewable energy?
+question: >-
+  Ranks the 27 EU member states by how much their renewables share grew from 2014 to 2024 (Eurostat),
+  next to what recent reports say about who is leading or lagging.
+lang: en
+default_sort: change_10y
+trend_labels:
+  up: leading
+  down: lagging
+
+metrics:
+  share_2014:
+    label: Share 2014
+    unit: "%"
+    source: eurostat-nrg-ind-ren
+    show: false
+    fetch:
+      provider: eurostat
+      dataset: nrg_ind_ren
+      params: {nrg_bal: REN, unit: PC, time: "2014"}
+  share_2024:
+    label: Share 2024
+    unit: "%"
+    source: eurostat-nrg-ind-ren
+    description: Share of energy from renewable sources in gross final energy consumption, 2024
+    fetch:
+      provider: eurostat
+      dataset: nrg_ind_ren
+      params: {nrg_bal: REN, unit: PC, time: "2024"}
+  change_10y:
+    label: Change 2014→2024
+    unit: pp
+    source: eurostat-nrg-ind-ren
+    description: Percentage points the renewables share gained between 2014 and 2024
+    derive: {op: subtract, a: share_2024, b: share_2014}
+
+sources:
+  eurostat-nrg-ind-ren:
+    name: "Eurostat dataset nrg_ind_ren: share of energy from renewable sources"
+    publisher: Eurostat
+    url: https://ec.europa.eu/eurostat/databrowser/view/nrg_ind_ren/default/table
+    tier: official
+    note: CC BY 4.0
+  eurostat-news-2025-12:
+    name: "Eurostat news: 25.2% of energy the EU used in 2024 came from renewables"
+    publisher: Eurostat
+    url: https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20251218-2
+    date: "2025-12-18"
+    tier: official
+  eurostat-news-2025-03:
+    name: "Eurostat news: electricity from renewable sources reaches 47% in 2024"
+    publisher: Eurostat
+    url: https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20250319-1
+    date: "2025-03-19"
+    tier: official
+  ember-eer-2026:
+    name: "Ember: European Electricity Review 2026"
+    publisher: Ember
+    url: https://ember-energy.org/latest-insights/european-electricity-review-2026/
+    date: "2026-01-22"
+    tier: research
+  ec-necp-be:
+    name: "European Commission: assessment of Belgium's final National Energy and Climate Plan"
+    publisher: European Commission
+    url: https://energy.ec.europa.eu/news/commission-assessment-belgiums-national-energy-and-climate-plan-shows-increased-ambition-requires-2026-01-26_en
+    date: "2026-01-26"
+    tier: official
+  ec-necp-ee-sk:
+    name: "European Commission: assessment of Estonia's and Slovakia's final National Energy and Climate Plans"
+    publisher: European Commission
+    url: https://energy.ec.europa.eu/news/commissions-assessment-estonia-and-slovakia-national-energy-and-climate-plans-shows-improvements-2025-10-02_en
+    date: "2025-10-02"
+    tier: official
+
+items:
+  - {id: AT, name: Austria, subtitle: Österreich, keys: {eurostat: AT}}
+  - id: BE
+    name: Belgium
+    subtitle: België / Belgique
+    keys: {eurostat: BE}
+    signals:
+      - {source: eurostat-news-2025-12, trend: down, claim: "Lowest renewables share of gross final energy consumption in the EU in 2024", quote: "The lowest shares of renewables were recorded in Belgium (14.3%), Luxembourg (14.7%), and Ireland (16.1%)."}
+      - {source: ec-necp-be, trend: down, claim: "Commission finds Belgium's contribution to the EU 2030 renewables target lacks ambition"}
+  - {id: BG, name: Bulgaria, subtitle: България, keys: {eurostat: BG}}
+  - id: CY
+    name: Cyprus
+    subtitle: Κύπρος
+    keys: {eurostat: CY}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Solar supplied more than a fifth of electricity in 2025"}
+  - id: CZ
+    name: Czechia
+    subtitle: Česko
+    keys: {eurostat: CZ}
+    signals:
+      - {source: eurostat-news-2025-03, trend: down, claim: "Among the three lowest renewables shares in net electricity generation in 2024", quote: "The lowest shares of renewables were recorded in Luxembourg (5.1%), Malta (15.1%) and Czechia (15.9%)."}
+  - id: DE
+    name: Germany
+    subtitle: Deutschland
+    keys: {eurostat: DE}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Coal power fell to an all-time low in 2025"}
+  - id: DK
+    name: Denmark
+    subtitle: Danmark
+    keys: {eurostat: DK}
+    signals:
+      - {source: eurostat-news-2025-03, trend: up, claim: "Highest renewables share in net electricity generation in the EU in 2024", quote: "Denmark had the highest share of renewables in its net electricity generation with 88.4%"}
+  - id: EE
+    name: Estonia
+    subtitle: Eesti
+    keys: {eurostat: EE}
+    signals:
+      - {source: ec-necp-ee-sk, trend: down, claim: "Commission still sees gaps on renewables and energy efficiency in the final plan"}
+  - id: EL
+    name: Greece
+    subtitle: Ελλάδα
+    keys: {eurostat: EL}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Solar supplied more than a fifth of electricity in 2025"}
+  - id: ES
+    name: Spain
+    subtitle: España
+    keys: {eurostat: ES}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Solar supplied more than a fifth of electricity in 2025"}
+  - {id: FI, name: Finland, subtitle: Suomi, keys: {eurostat: FI}}
+  - {id: FR, name: France, subtitle: France, keys: {eurostat: FR}}
+  - {id: HR, name: Croatia, subtitle: Hrvatska, keys: {eurostat: HR}}
+  - id: HU
+    name: Hungary
+    subtitle: Magyarország
+    keys: {eurostat: HU}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Solar supplied more than a fifth of electricity in 2025"}
+  - id: IE
+    name: Ireland
+    subtitle: Éire
+    keys: {eurostat: IE}
+    signals:
+      - {source: eurostat-news-2025-12, trend: down, claim: "Among the three lowest renewables shares of gross final energy consumption in 2024", quote: "The lowest shares of renewables were recorded in Belgium (14.3%), Luxembourg (14.7%), and Ireland (16.1%)."}
+      - {source: ember-eer-2026, trend: up, claim: "Stopped burning coal for power"}
+  - {id: IT, name: Italy, subtitle: Italia, keys: {eurostat: IT}}
+  - {id: LT, name: Lithuania, subtitle: Lietuva, keys: {eurostat: LT}}
+  - id: LU
+    name: Luxembourg
+    subtitle: Lëtzebuerg
+    keys: {eurostat: LU}
+    signals:
+      - {source: eurostat-news-2025-12, trend: down, claim: "Among the three lowest renewables shares of gross final energy consumption in 2024", quote: "The lowest shares of renewables were recorded in Belgium (14.3%), Luxembourg (14.7%), and Ireland (16.1%)."}
+      - {source: eurostat-news-2025-03, trend: down, claim: "Lowest renewables share in net electricity generation in 2024", quote: "The lowest shares of renewables were recorded in Luxembourg (5.1%), Malta (15.1%) and Czechia (15.9%)."}
+  - {id: LV, name: Latvia, subtitle: Latvija, keys: {eurostat: LV}}
+  - id: MT
+    name: Malta
+    subtitle: Malta
+    keys: {eurostat: MT}
+    signals:
+      - {source: eurostat-news-2025-03, trend: down, claim: "Among the three lowest renewables shares in net electricity generation in 2024", quote: "The lowest shares of renewables were recorded in Luxembourg (5.1%), Malta (15.1%) and Czechia (15.9%)."}
+  - id: NL
+    name: Netherlands
+    subtitle: Nederland
+    keys: {eurostat: NL}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Solar supplied more than a fifth of electricity in 2025"}
+  - id: PL
+    name: Poland
+    subtitle: Polska
+    keys: {eurostat: PL}
+    signals:
+      - {source: ember-eer-2026, trend: up, claim: "Coal power fell to an all-time low in 2025"}
+  - {id: PT, name: Portugal, subtitle: Portugal, keys: {eurostat: PT}}
+  - {id: RO, name: Romania, subtitle: România, keys: {eurostat: RO}}
+  - id: SE
+    name: Sweden
+    subtitle: Sverige
+    keys: {eurostat: SE}
+    signals:
+      - {source: eurostat-news-2025-12, trend: up, claim: "Highest renewables share of gross final energy consumption in the EU in 2024", quote: "Sweden recorded the highest share of its gross final energy consumption"}
+  - {id: SI, name: Slovenia, subtitle: Slovenija, keys: {eurostat: SI}}
+  - id: SK
+    name: Slovakia
+    subtitle: Slovensko
+    keys: {eurostat: SK}
+    signals:
+      - {source: ec-necp-ee-sk, trend: down, claim: "Commission still sees gaps on renewables and energy efficiency in the final plan"}

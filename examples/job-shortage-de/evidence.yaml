@@ -1,0 +1,447 @@
+# 示例：德国哪些职业最缺人（中文示例）
+# Example: which occupations in Germany are short of workers (Chinese-language example)
+#
+# 信号是手工从公开报告摘要里整理的，claim 是转述，不是原文引用；引用前请点来源核对。
+# tags 里的 技工 / 专业 / 学术 大致对应 BA 的 Fachkraft / Spezialist / Experte。
+
+title: 德国哪些职业最缺人
+question: 综合联邦劳动局（BA）、KOFA、Indeed、StepStone 的公开报告，德国哪些职业的人才缺口最明显？薪资水平如何？
+lang: zh
+default_sort: score
+trend_labels:
+  up: 紧缺
+  down: 降温
+metrics:
+  salary_year:
+    label: 年薪中位数
+    unit: €
+    source: ba-entgeltatlas
+    description: BA Entgeltatlas 全德全职月薪中位数 × 12（已含年终奖等一次性收入）
+sources:
+  ba-entgeltatlas:
+    name: BA Entgeltatlas（联邦劳动局薪资地图）
+    publisher: Bundesagentur für Arbeit
+    url: https://web.arbeitsagentur.de/entgeltatlas/
+    date: '2026-07-20'
+    tier: official
+    note: 全职员工月薪中位数，2025-12-31 统计
+  stepstone-herbst-2026:
+    name: Stepstone 就业市场趋势 2026 秋
+    url: https://www.boerse.de/nachrichten/Jobsicherheit-wird-wichtiger-Berufseinstieg-bleibt-schwer-Die-Arbeitsmarkt-Trends-im-Herbst-2026/38604412
+    date: '2026-09-16'
+    tier: secondary
+    note: Stepstone 新闻稿，经 boerse.de 转载；百分比 = 该岗位 2025 年占全部岗位的比例，相对 2019–2025 平均占比的偏离
+  stepstone-trends-2026:
+    name: Stepstone 2026 就业市场分析
+    url: https://www.onvista.de/news/2025/12-16-stepstone-analyse-quereinstieg-jobsicherheit-und-ki-praegen-den-arbeitsmarkt-2026-0-37-26460670
+    date: '2025-12-16'
+    tier: secondary
+    note: Stepstone 新闻稿，经 onvista 转载
+  stepstone-gehalt-2026:
+    name: Stepstone 薪资报告 2026
+    url: https://www.infranken.de/ratgeber/karriere-geld/gehaltsreport-2026-gender-pay-gap-bruttomediangehalt-stepstone-gehaltsdaten-bundeslaender-einkommensunterschiede-berufserfahrung-tmr-1-art-6322076
+    date: '2026'
+    tier: secondary
+    note: Stepstone 薪资报告，经 infranken 转述
+  ba-engpass-2025:
+    name: BA 紧缺分析 2025（157 个紧缺职业）
+    url: https://berlinuna.com/de/news/157-engpassberufe-gehoert-deiner-dazu
+    date: '2026'
+    tier: secondary
+    note: 转述 BA 紧缺分析；完整表格在 statistik.arbeitsagentur.de → Interaktive Statistiken → Engpassanalyse
+  ba-akademiker-2026:
+    name: BA 学术类人才报告 2026 年 8 月（25 个学术类紧缺职业）
+    url: https://statistik.arbeitsagentur.de/DE/Statischer-Content/Statistiken/Themen-im-Fokus/Berufe/AkademikerInnen/Generische-Publikationen/Gesamt-PDF-AkademikerInnen.pdf?__blob=publicationFile
+    date: '2026-08'
+    tier: official
+  ba-heilmittel-2025:
+    name: 2025 紧缺分析：治疗类职业
+    url: https://www.up-aktuell.de/aktuell/2026/10/engpassanalyse-2025-bestaetigt-erneut-fachkraeftemangel-in-den-heilmittelberufen/
+    date: '2026-10'
+    tier: media
+    note: 行业媒体转述 BA 紧缺分析
+  kofa-2025:
+    name: KOFA 2025 年度回顾（经 gastamo 转引）
+    url: https://gastamo-job.de/blog/fachkraeftemangel-handwerk/
+    date: '2026'
+    tier: secondary
+    note: KOFA 数字经 gastamo 博客转引
+  kofa-maerz-2026:
+    name: KOFA 专业人才报告 2026 年 3 月
+    url: https://www.kofa.de/daten-und-fakten/studien/fachkraeftereport-maerz-2026/
+    tier: research
+  kofa-kmu-2026:
+    name: KOFA 研究：中小企业的人才短缺
+    url: https://www.iwkoeln.de/studien/franziska-arndt-paula-risius-lydia-malin-valeria-quispe-fachkraeftemangel-in-kmu-unterschiede-nach-betriebsgroessenklassen.html
+    date: '2026'
+    tier: research
+  indeed-trends-2026:
+    name: Indeed 2026 年德国招聘趋势报告
+    url: https://hiringlab.indeed.com/de/blog/2025/12/11/indeed-jobs-hiring-trends-report-deutschland-2026/
+    date: '2025-12-11'
+    tier: industry
+  indeed-q2-2026:
+    name: Indeed 就业市场更新 2026 Q2
+    url: https://hiringlab.indeed.com/de/blog/2026/07/22/arbeitsmarkt-update-q2-2026-sommerjobs-als-lichtblick-auf-einem-trueben-stellenmarkt/
+    date: '2026-07-22'
+    tier: industry
+  indeed-q3-2026:
+    name: Indeed 就业市场更新 2026 Q3（首页摘要）
+    url: https://hiringlab.indeed.com/de/
+    date: '2026-10'
+    tier: industry
+    note: 首页摘要，链接会随新文章变化
+  indeed-einstieg-2026:
+    name: Indeed 入门岗位分析
+    url: https://hiringlab.indeed.com/de/blog/2026/09/23/berufseinstieg-stellenangebot-sinkt-ausbildungssystem-bietet-einen-anker/
+    date: '2026-09-23'
+    tier: industry
+items:
+- id: elektroniker-energie-und-gebaeudetechnik
+  name: 电工（建筑和能源方向）
+  subtitle: Elektroniker Energie- und Gebäudetechnik / Bauelektrik
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 47220
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/15637
+      note: Elektroniker/in – Energie- und Gebäudetechnik，月薪 3935 € × 12
+  signals:
+  - source: kofa-2025
+    trend: up
+    claim: 缺口约 16,270 人，全德最大
+  - source: stepstone-herbst-2026
+    trend: up
+    claim: +37%
+  - source: kofa-kmu-2026
+    trend: up
+    claim: 缺口约 90% 在中小企业
+- id: pflegefachkraft
+  name: 护理（养老和医院）
+  subtitle: Pflegefachkraft / Altenpflege
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 55044
+      url: https://entgeltatlas-online.de/berufe
+      note: Pflegefachmann/-frau（KldB 81302），月薪 4587 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-engpass-2025
+    trend: up
+    claim: 紧缺职业
+  - source: stepstone-trends-2026
+    trend: up
+    claim: 2025 年最热门岗位之一
+  - source: indeed-q2-2026
+    trend: up
+    claim: Q2 仅 6 个职类增长，3 个在医疗
+  - source: indeed-q3-2026
+    trend: mixed
+    claim: 医疗从高位回落
+  - source: kofa-kmu-2026
+    trend: up
+    claim: 养老护理缺口约 90% 在中小企业
+- id: anlagenmechaniker-shk
+  name: 水暖空调技工
+  subtitle: Anlagenmechaniker Sanitär-, Heizungs- und Klimatechnik
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 46608
+      url: https://entgeltatlas-online.de/berufe
+      note: Anlagenmechaniker/in SHK（KldB 34212），月薪 3884 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-engpass-2025
+    trend: up
+    claim: 紧缺职业
+  - source: stepstone-herbst-2026
+    trend: up
+    claim: +17%
+- id: berufskraftfahrer
+  name: 卡车司机
+  subtitle: Berufskraftfahrer / LKW-Fahrer
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 38352
+      url: https://entgeltatlas-online.de/berufe
+      note: Berufskraftfahrer/in (LKW)（KldB 52122），月薪 3196 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-engpass-2025
+    trend: up
+    claim: 紧缺职业
+  - source: stepstone-herbst-2026
+    trend: up
+    claim: LKW-Fahrer 短途 +40%
+- id: schweisser
+  name: 焊接、金属结构、机械和设备维护
+  subtitle: Schweißtechnik / Metallbau / Maschinenbau- und Betriebstechnik
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 46116
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/28968
+      note: WIG-Schweißer/in（焊接与连接技术），月薪 3843 € × 12
+  signals:
+  - source: kofa-maerz-2026
+    trend: up
+    claim: 缺口涨得最快的一类（国防和基建资金）
+- id: zerspanungsmechaniker
+  name: 切削加工
+  subtitle: Zerspanungsmechaniker / spanende Metallbearbeitung
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 50340
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/29054
+      note: Zerspanungsmechaniker/in，月薪 4195 € × 12
+  signals:
+  - source: kofa-maerz-2026
+    trend: up
+    claim: 缺口涨幅前列
+  - source: ba-engpass-2025
+    trend: down
+    claim: 2025 年不再算紧缺
+- id: heilerziehungspfleger
+  name: 特殊教育护理
+  subtitle: Heilerziehungspfleger
+  tags:
+  - 专业
+  metrics:
+    salary_year:
+      value: 54300
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/9118
+      note: Heilerziehungspfleger/in，月薪 4525 € × 12
+  signals:
+  - source: stepstone-herbst-2026
+    trend: up
+    claim: +36%
+- id: physiotherapeut
+  name: 物理治疗、作业治疗
+  subtitle: Physiotherapeut / Ergotherapeut
+  tags:
+  - 专业
+  metrics:
+    salary_year:
+      value: 41424
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/8747
+      note: Physiotherapeut/in，月薪 3452 € × 12
+  signals:
+  - source: ba-heilmittel-2025
+    trend: up
+    claim: 专业人员层级紧缺前十
+- id: kfz-mechatroniker
+  name: 汽车机电技工
+  subtitle: KFZ-Mechatroniker
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 45060
+      url: https://entgeltatlas-online.de/berufe
+      note: Kfz-Mechatroniker/in（KldB 25212），月薪 3755 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: stepstone-herbst-2026
+    trend: up
+    claim: +15%
+- id: koch
+  name: 厨师
+  subtitle: Koch / Köchin
+  tags:
+  - 技工
+  metrics:
+    salary_year:
+      value: 36216
+      url: https://entgeltatlas-online.de/berufe
+      note: Koch/Köchin（KldB 29302），月薪 3018 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-engpass-2025
+    trend: up
+    claim: 紧缺职业
+- id: erzieher
+  name: 幼师、儿童托育
+  subtitle: Erzieher / Kinderbetreuung
+  tags:
+  - 专业
+  metrics:
+    salary_year:
+      value: 51768
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/9159
+      note: Erzieher/in，月薪 4314 € × 12
+  signals:
+  - source: ba-engpass-2025
+    trend: up
+    claim: 紧缺职业
+  - source: stepstone-trends-2026
+    trend: up
+    claim: 2025 年最热门岗位之一
+  - source: kofa-maerz-2026
+    trend: down
+    claim: 缺口约 12,200，比去年明显缩小
+- id: arzt
+  name: 医生
+  subtitle: Arzt / Ärztin
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 89400
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/58709
+      note: Arzt/Ärztin，月薪 7450 € × 12
+  signals:
+  - source: ba-akademiker-2026
+    trend: up
+    claim: 学术类紧缺职业
+  - source: stepstone-gehalt-2026
+    trend: mixed
+    claim: 年薪中位数超过 10 万欧，排第一
+- id: bauingenieur
+  name: 土木工程、建筑规划和施工监理
+  subtitle: Bauingenieur / Bauplanung und -überwachung
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 72456
+      url: https://entgeltatlas-online.de/berufe
+      note: Bauingenieur/in（KldB 31104），月薪 6038 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-akademiker-2026
+    trend: up
+    claim: 明显缺口
+  - source: indeed-trends-2026
+    trend: up
+    claim: 建筑业招聘 2025 年 +5.7%
+  - source: stepstone-gehalt-2026
+    trend: mixed
+    claim: 工程类年薪中位数 7.5 万欧
+- id: steuerberater
+  name: 税务顾问、审计
+  subtitle: Steuerberater / Wirtschaftsprüfer
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 93156
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/7566
+      note: Steuerberater/in，月薪 7763 € × 12
+  signals:
+  - source: ba-akademiker-2026
+    trend: up
+    claim: 学术类紧缺职业（税务、审计、会计）
+- id: zahnarzt
+  name: 牙医
+  subtitle: Zahnarzt / Zahnärztin
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 73824
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/58788
+      note: Zahnarzt/-ärztin，月薪 6152 € × 12
+  signals:
+  - source: kofa-kmu-2026
+    trend: up
+    claim: 缺口约 90% 在中小诊所
+- id: sozialarbeiter
+  name: 社工
+  subtitle: Sozialarbeit / Sozialpädagogik
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 59964
+      url: https://entgeltatlas-online.de/berufe
+      note: 社会工作与社会教育类（Experte），月薪 4997 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-akademiker-2026
+    trend: up
+    claim: 2025 年新列入学术类紧缺
+  - source: kofa-maerz-2026
+    trend: down
+    claim: 缺口超过 10,900，比去年缩小
+- id: kuenstliche-intelligenz
+  name: AI 相关岗位
+  subtitle: KI-Manager / KI-Entwickler
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 80424
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/129987
+      note: Data Scientist（信息技术 Experte），月薪 6702 € × 12
+  signals:
+  - source: indeed-trends-2026
+    trend: up
+    claim: 很多白领职类里 AI 岗位在增加
+  - source: stepstone-trends-2026
+    trend: mixed
+    claim: 求职者搜 KI-Manager +174%（这是求职者的搜索，不是企业需求）
+- id: softwareentwickler
+  name: 软件开发
+  subtitle: Softwareentwickler
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 75612
+      url: https://entgeltatlas-online.de/berufe
+      note: Softwareentwickler/in（KldB 43414），月薪 6301 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-akademiker-2026
+    trend: down
+    claim: 2025 年不再算紧缺
+  - source: indeed-einstieg-2026
+    trend: down
+    claim: IT 入门岗位大幅减少
+  - source: stepstone-gehalt-2026
+    trend: mixed
+    claim: IT 年薪中位数 6.675 万欧
+- id: it-vertrieb
+  name: IT 销售
+  subtitle: IT-Vertrieb
+  tags:
+  - 专业
+  metrics:
+    salary_year:
+      value: 79080
+      url: https://entgeltatlas-online.de/berufe
+      note: IT 销售类（Spezialist），月薪 6590 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-engpass-2025
+    trend: down
+    claim: 2025 年不再算紧缺
+- id: apotheker
+  name: 药剂师
+  subtitle: Apotheker
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 64848
+      url: https://entgeltatlas-online.de/berufe
+      note: Apotheker/in（KldB 81804），月薪 5404 € × 12；数据经 entgeltatlas-online.de 转载（第三方，非 BA 官网）
+  signals:
+  - source: ba-akademiker-2026
+    trend: down
+    claim: 2025 年不再算紧缺
+- id: rechtsanwalt
+  name: 法律咨询
+  subtitle: Rechtsberatung
+  tags:
+  - 学术
+  metrics:
+    salary_year:
+      value: 95064
+      url: https://web.arbeitsagentur.de/entgeltatlas/beruf/8241
+      note: Rechtsanwalt/Rechtsanwältin，月薪 7922 € × 12
+  signals:
+  - source: ba-akademiker-2026
+    trend: down
+    claim: 2025 年不再算紧缺
