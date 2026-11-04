@@ -1,2 +1,5 @@
 PyYAML>=6.0
 requests>=2.31
+pypdf>=6.0
+trafilatura>=2.0
+ruamel.yaml>=0.18

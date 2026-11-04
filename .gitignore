@@ -6,3 +6,9 @@ venv/
 
 # build output / 生成的报告
 out/
+
+# report text read from links / 读到的报告全文，版权归发布方，不进仓库
+.cache/
+
+# AI drafts waiting for review / 等人审核的 AI 草稿
+*.proposed.yaml
