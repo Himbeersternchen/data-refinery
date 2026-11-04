@@ -80,8 +80,8 @@ def test_eurostat_parse_and_refresh():
         shutil.copy(src, tmp / "evidence.yaml")
         ev = evidence.load(tmp / "evidence.yaml")
         real = fetch.PROVIDERS["eurostat"]
-        fetch.PROVIDERS["eurostat"] = lambda dataset, params, geos: {g: 10.0 if params["time"] == "2014" else 30.0
-                                                                      for g in geos if g != "MT"}
+        fetch.PROVIDERS["eurostat"] = lambda dataset, params, geos, get=None: {g: 10.0 if params["time"] == "2014" else 30.0
+                                                                                for g in geos if g != "MT"}
         try:
             filled = fetch.refresh(ev)
         finally:
